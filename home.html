@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Home</title>
+	<style>
+     body {
+            background-image: url("https://images.unsplash.com/photo-1572375992501-4b0892d50c69?ixid=MXwxMjA3fDB8MHxzZWFyY2h8Mnx8dGV4dHxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60");
+            text-align: center;
+            padding: 0px;
+            background-position:center; background-repeat:no-repeat; background-size:cover;
+            margin:auto;
+        }
+    body{
+    font-family: 'Poppins',sans-serif;
+}
+
+header h1{
+    height:80px;
+    padding-top:40px;
+    background-color:#f2f2f2;
+    color:#000000;
+}
+
+section{
+    margin-top: 100px;
+    padding: 0 30px;
+    text-align: justify;
+    line-height: 30px;
+}
+section h1{
+    font-size: 42px;
+    text-align: center;
+    margin: 50px 0;
+    line-height:50px;
+}
+.text-box h1{
+    font-weight: 400;
+    font-size: 35px;
+    letter-spacing: 1px;
+}
+textarea{
+    height:150px;
+    width:70%;
+    font-size:20px;
+    border: 2px solid red;
+    border-radius: 6px;
+}
+
+.ml-container h4{
+text-align:center;
+background-color: #f2f2f2;
+padding-top:10px;
+margin-top:4px;
+border-radius:15px;
+width:600px;
+height:30px;
+margin:auto;
+}
+
+.btn-info{
+width: 200px;
+height: 50px;
+margin:auto;
+text-align: center;
+display:block;
+border-radius: 16px;
+font-size: 18px;
+background-color: blue;
+color: white;
+}
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="text-box">
+            <h1><b>Toxic Comment Classifier</b></h1>
+        </div>
+    </header>
+    <br>
+	<div class="ml-container">
+
+		<form action="{{ url_for('predict')}}" method="POST">
+		<h4>Enter Comment</h4>
+        <br>
+		<!-- <input type="text" name="comment"/> -->
+		<textarea name="message" rows="6" cols="50"></textarea>
+		<br/>
+
+		<input type="submit" class="btn-info" value="Submit">
+		</form>
+    </div>
+    <br>
+
+	<div class="results">
+
+
+	<br><br><h1><font-color="black">{{ prediction }}</font><h1>	
+	{% if prediction == 1%}
+	<h2 style="color:red;">Oops! This comment is nasty </h2>
+	{% elif prediction == 0%}
+	<h2 style="color:blue;">Yayy! This comment contains no obscene words</h2>
+	{% endif %}
+
+	</div>
+	
+
+</body>
+</html>
