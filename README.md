@@ -1,1 +1,1 @@
-![me](/Users/danav/Documents/self learning/toxic_tweets/ScreenRecorderProject2_2.gif)
+![me](https://github.com/danch22/toxic_tweets/blob/master/ScreenRecorderProject2_1.gif)
