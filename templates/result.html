@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+	<head>
+		<meta charset="utf-8">
+		<title>your result!</title>
+		<link rel="shortcut icon" href="{{ url_for('static', filename='static/tweet.ico') }}">
+		<link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='tweet.css') }}">
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+	</head>
+
+	<body>
+		<div class="results">
+			{% if prediction==1 %}
+				<h1 class="prediction">Prediction: <span class='safe'>Positive😄😄</span></h1>
+				<img class="gif" src="{{ url_for('static', filename='static/smileypositive.gif') }}" alt="Positive😄😄">
+			{% elif prediction==0 %}
+				<h1 class="prediction">Prediction: <span class='danger'>Negative😑😑</span></h1>
+				<img class="gif" src="{{ url_for('static', filename='static/smileynegative.gif') }}" alt="Negative😑😑">
+			{% endif %}
+		</div>
+
+        <div class='footer'>
+            <div class="contact">
+				<a target="_blank" href="https://github.com/danch22"><i class="fa fa-github fa-lg contact-icon"></i></a>
+				<a target="_blank" href="/tweet"><i class="fa fa-home fa-lg contact-icon"></i></a>
+                <a target="_blank" href="https://www.linkedin.com/in/danaraevsky/"><i class="fa fa-linkedin fa-lg contact-icon"></i></a>
+            </div>
+            <p class='footer-description'>Made with ❤️ by Danch22👋.</p>
+        </div>
+
+	</body>
+</html>

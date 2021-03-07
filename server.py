@@ -1,11 +1,10 @@
 import os
-from flask import Flask, url_for, request
+from flask import Flask, render_template, url_for, request
 import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
+from nltk.corpus import stopwords
+import re
 import pickle
-
-# load the model from disk
-
 
 app = Flask(__name__)
 
@@ -17,23 +16,31 @@ def load_model(filename):
 
 clf = load_model('toxic_comments_lr.pkl')
 tf = load_model('tfidf_transform.pkl')
+all_stopwords = stopwords.words('english')
+all_stopwords.remove('not')
 
 
 @app.route('/')
 def home():
-    # return render_template('home.html')
-    print('hello world!')
+    return render_template('home.html')
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        message = request.form['message']
-        data = [message]
-        vect = tf.transform(data).toarray()
-        my_prediction = clf.predict(vect)
-    # return render_template('home.html', prediction=my_prediction)
-    return str(my_prediction)
+        new_tweet = request.form['tweet']  ##requesting new review from the input field
+        new_tweet = new_tweet.lower()
+        new_tweet = re.sub('@#[A-Za-z0–9]+', ' ', new_tweet)
+        new_tweet = re.sub('https?:\/\/\S+', ' ', new_tweet)
+
+        new_tweet = new_tweet.split()
+
+        new_tweet = [word for word in new_tweet if not word in set(all_stopwords)]
+        new_tweet = ' '.join(new_tweet)
+        new_corpus = [new_tweet]
+        new_X_test = tf.transform(new_corpus).toarray()
+        pred = clf.predict(new_X_test)
+        return render_template('result.html', prediction=pred)
 
 
 if __name__ == '__main__':
