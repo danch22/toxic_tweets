@@ -12,12 +12,12 @@
 
 	<body>
 		<div class="results">
-			{% if prediction==1 %}
+			{% if prediction==0 %}
 				<h1 class="prediction">Prediction: <span class='safe'>Positive😄😄</span></h1>
-				<img class="gif" src="{{ url_for('static', filename='static/smileypositive.gif') }}" alt="Positive😄😄">
-			{% elif prediction==0 %}
+				<img class="gif" src="{{ url_for('static', filename='smileypositive.gif') }}" alt="Positive😄😄">
+			{% elif prediction==1 %}
 				<h1 class="prediction">Prediction: <span class='danger'>Negative😑😑</span></h1>
-				<img class="gif" src="{{ url_for('static', filename='static/smileynegative.gif') }}" alt="Negative😑😑">
+				<img class="gif" src="{{ url_for('static', filename='smileynegative.gif') }}" alt="Negative😑😑">
 			{% endif %}
 		</div>
 

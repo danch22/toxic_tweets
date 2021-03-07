@@ -8,6 +8,7 @@ import pickle
 
 app = Flask(__name__)
 
+URLPATTERN = r"((http://)[^ ]*|(https://)[^ ]*|( www\.)[^ ]*)"
 
 def load_model(filename):
     file_mod = open(filename, 'rb')
@@ -22,16 +23,17 @@ all_stopwords.remove('not')
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template('home1.html')
 
 
 @app.route('/predict', methods=['POST'])
 def predict():
     if request.method == 'POST':
-        new_tweet = request.form['tweet']  ##requesting new review from the input field
+
+        new_tweet = request.form['tweet']
         new_tweet = new_tweet.lower()
-        new_tweet = re.sub('@#[A-Za-z0–9]+', ' ', new_tweet)
-        new_tweet = re.sub('https?:\/\/\S+', ' ', new_tweet)
+        new_tweet = re.sub('@#[A-Za-z]+', ' ', new_tweet)
+        new_tweet = re.sub(URLPATTERN, 'URL', new_tweet)
 
         new_tweet = new_tweet.split()
 
@@ -40,7 +42,7 @@ def predict():
         new_corpus = [new_tweet]
         new_X_test = tf.transform(new_corpus).toarray()
         pred = clf.predict(new_X_test)
-        return render_template('result.html', prediction=pred)
+        return render_template('home1.html', prediction=pred)
 
 
 if __name__ == '__main__':
